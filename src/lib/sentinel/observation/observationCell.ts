@@ -19,7 +19,10 @@ import { checkHardVeto, assessQuality } from "./selectivity";
 import { explainWaiting } from "./explain";
 import { computeDossierScore } from "./scoring";
 import { evaluateExecutionReady } from "../execution-ready";
-import { observeLiquiditySweep } from "../liquidity-sweep";
+import { observeLiquiditySweep, type LiquiditySweepObservation } from "../liquidity-sweep";
+
+/** Evidence input after the cell guarantees a liquidity-sweep observation is present. */
+type NormalizedEvidenceInput = EngineEvidenceInput & { liquiditySweep: LiquiditySweepObservation };
 
 interface HistoryEntry {
   timestamp: number;
@@ -204,7 +207,7 @@ export class ObservationCell {
       this.proposition.startsWith("OVER") ? "OVER" : "UNDER",
       parseInt(this.proposition.replace(/\D/g, ""), 10) || (this.proposition.startsWith("OVER") ? 2 : 7),
     );
-    const normalizedInput: EngineEvidenceInput = { ...input, liquiditySweep: sweep };
+    const normalizedInput: NormalizedEvidenceInput = { ...input, liquiditySweep: sweep };
     if (this.createdAtTimestamp === 0) {
       this.createdAtTimestamp = normalizedInput.timestamp;
       this.stateEnteredTimestamp = normalizedInput.timestamp;
@@ -879,7 +882,7 @@ export class ObservationCell {
   }
 
   private buildDossier(
-    input: EngineEvidenceInput,
+    input: NormalizedEvidenceInput,
     stability: StabilityState,
     contradictions: number,
     momentumRelation: ReturnType<typeof interpretMomentum>,

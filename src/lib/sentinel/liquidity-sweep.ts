@@ -205,7 +205,7 @@ export function observeLiquiditySweep(
   ].filter(Boolean).length;
 
   const score = Math.round(
-    observedBuild * 20 +
+    (observedBuild ? 20 : 0) +
       Math.min(25, Math.max(0, concentrationReleasePp) * 5) +
       Math.min(20, Math.max(0, boundaryReleasePp) * 10) +
       Math.min(25, Math.max(0, winningAdvancePp) * 5) +

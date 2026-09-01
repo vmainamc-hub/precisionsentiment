@@ -38,6 +38,7 @@ function compactDossierForStorage(dossier: ObservationDossier): ObservationDossi
     entryDigit: dossier.entryDigit,
     pressure: dossier.pressure,
     losingSidePressure: dossier.losingSidePressure,
+    liquiditySweep: dossier.liquiditySweep,
     danger: dossier.danger,
     simulation: dossier.simulation,
     regime: dossier.regime,
