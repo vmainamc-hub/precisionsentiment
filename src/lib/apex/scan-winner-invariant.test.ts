@@ -23,6 +23,7 @@ function cell(
     psychology?: { score: number; verdict: string };
     risingCount?: number;
     groupThreat?: number;
+    sweepState?: "CONFIRMED" | "TRANSITION" | "BUILDING" | "INSUFFICIENT";
   },
 ): RankedOpportunity {
   return {
@@ -54,6 +55,12 @@ function cell(
     identityConformance: { state: opts.conformance ?? "STRONG" },
     finalDecision: { verdict: opts.qualified ? "CLEARED" : "BLOCKED", summary: "test" },
     observationQualification: { qualified: opts.qualified },
+    observationDossier: {
+      liquiditySweep: {
+        state: opts.sweepState ?? "CONFIRMED",
+        confirmed: (opts.sweepState ?? "CONFIRMED") === "CONFIRMED",
+      },
+    },
   } as unknown as RankedOpportunity;
 }
 
