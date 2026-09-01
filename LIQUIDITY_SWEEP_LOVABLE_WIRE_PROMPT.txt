@@ -1,0 +1,16 @@
+WIRE THIS SUPPLIED AMENDMENT INTO THE EXISTING APP ONLY.
+
+The supplied code already implements the proposition-aware Liquidity Sweep / Exhaustion observer. Do not redesign Sentinel or create another sweep engine.
+
+Required behavior:
+1. The sweep is observed from real retained tick history at the Observation Layer for each cell/proposition.
+2. It must detect the sequence: opposing losing-digit concentration → peak → exhaustion → release → winning-zone transition.
+3. High losing-digit concentration alone is NOT a sweep.
+4. UNDER and OVER must use proposition-specific opposing/winning zones and their own boundary digit.
+5. Only an actually observed CONFIRMED sweep may pass the third final surface veto.
+6. Final surface vetting remains: Psychology SUPPORT (65+), zero losing digits gaining, group threat <10, AND observed sweep CONFIRMED.
+7. Preserve the existing authoritative finalRank. Vetting may select the first surviving candidate but must never re-sort or silently promote a candidate outside finalRank order.
+
+Do only the minimum wiring required. Do not rewrite unrelated files, UI, market-data, ranking, DBot, or Entry Point logic.
+
+Run the existing tests/typecheck/build if available and report the actual results. Do not weaken the sweep gate to make tests pass.

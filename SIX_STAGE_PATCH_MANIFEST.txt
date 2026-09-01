@@ -1,0 +1,17 @@
+BASE: precisionanalyst-entry-digit-dbot-replay-corrected.zip
+
+CHANGED / ADDED:
+src/lib/sentinel/entry-point.ts
+src/lib/sentinel/entry-point-dbot-hierarchy.test.ts
+ENTRY_DIGIT_DBOT_REPLAY_PATCH.md
+ENTRY_DIGIT_SIX_STAGE_HIERARCHY.md
+
+KEY CONTRACT:
+- Existing entry engines remain candidate/evidence generators.
+- Exact DBot replay validates all 0-9 candidates.
+- Insufficient/poor replay is rejected, not merely down-scored.
+- Strong replay survivors are preferred.
+- Existing entry statistical evidence breaks ties among survivors.
+- Only the final survivor is EntryPointReport.preferred.
+- No validated-digital fallback to a rejected digit.
+- Existing market/cell final ranking is untouched.
