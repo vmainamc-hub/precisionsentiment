@@ -119,6 +119,17 @@ describe("Surface admission — first surviving ranked candidate is displayed", 
     expect(selectScanCandidate(scan, [cellA, cellB])).toBeNull();
   });
 
+  it("fails the surface gate when the observed sweep is not CONFIRMED", () => {
+    const cellA = cell("CELL_A", { qualified: true, score: 88, sweepState: "TRANSITION" });
+    const cellB = cell("CELL_B", { qualified: true, score: 71 });
+    const scan = fakeScan([cellA, cellB], [cellA, cellB]);
+
+    expect(scan.surfaceRank).toEqual([cellB]);
+    expect(selectScanCandidate(scan, [cellA, cellB])).toBe(cellB);
+    // Vetting only filters — finalRank order is untouched.
+    expect(scan.finalRank![0]).toBe(cellA);
+  });
+
   it("prefers the continuous live surfaced signal over the scan snapshot", () => {
     const live = cell("LIVE", { qualified: true, score: 50 });
     const scanned = cell("SCANNED", { qualified: true, score: 90 });
