@@ -62,7 +62,7 @@ export class ObservationCell {
   private vetoStreak = 0;
   private lastVetoReason: string | null = null;
   private tickConfirmationEngine = new TickConfirmationEngine();
-  private lastInput: EngineEvidenceInput | null = null;
+  private lastInput: NormalizedEvidenceInput | null = null;
   private lastMeaningfulEvidenceTick = 0;
   private previousThesis: MarketThesis | null = null;
 
@@ -309,7 +309,7 @@ export class ObservationCell {
   // -- internal ---------------------------------------------------------
 
   private buildRawDossier(
-    input: EngineEvidenceInput,
+    input: NormalizedEvidenceInput,
     stability: StabilityState,
     contradictions: number,
     momentumRelation: ReturnType<typeof interpretMomentum>,
